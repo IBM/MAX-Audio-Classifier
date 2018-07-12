@@ -1,6 +1,6 @@
 # IBM Code Model Asset Exchange: Audio Classifier
 
-This repository contains code to instantiate and deploy an audio classifcation model. This model recognizes a signed 16-bit
+This repository contains code to instantiate and deploy an audio classification model. This model recognizes a signed 16-bit
 PCM wav file as an input, generates embeddings, applies
 [PCA transformation/quantization](https://github.com/tensorflow/models/tree/master/research/audioset#output-embeddings),
 uses the embeddings as an input to a multi-attention classifier and outputs top 5 class predictions and probabilities as output. 
@@ -20,7 +20,7 @@ in a Docker container. This repository was developed as part of the
 
 ## References
 
-* _Jort F. Gemmeke, Daniel P. W. Ellis, Dylan Freedman, Aren Jansen,Wade Lawrence, R. Channing Moore, Manoj Plakal, Marvin Ritter_,["Audio set: An ontology and human-labeled dataset for audio events"](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45857.pdf), IEEE ICASSP, 2017.
+* _Jort F. Gemmeke, Daniel P. W. Ellis, Dylan Freedman, Aren Jansen, Wade Lawrence, R. Channing Moore, Manoj Plakal, Marvin Ritter_,["Audio set: An ontology and human-labeled dataset for audio events"](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45857.pdf), IEEE ICASSP, 2017.
 
 * _Qiuqiang Kong, Yong Xu, Wenwu Wang, Mark D. Plumbley_,["Audio Set classification with attention model: A probabilistic perspective."](https://arxiv.org/pdf/1711.00927.pdf) arXiv preprint arXiv:1711.00927 (2017).
 
