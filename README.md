@@ -84,7 +84,7 @@ only (we will add support for GPU images later).
 To run the Docker image, which automatically starts the model serving API, run:
 
 ```
-$ docker run -it -p 5000:5000 audio-classifier
+$ docker run -it -p 5000:5000 max-audio-classifier
 ```
 
 ## 3. Use the Model
