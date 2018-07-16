@@ -60,13 +60,13 @@ arXiv:1609.09430, 2016.
 Clone this repository locally. In a terminal, run the following command:
 
 ```
-$ git clone https://github.com/IBM/MAX-audio-classifier.git
+$ git clone https://github.com/IBM/MAX-Audio-Classifier.git
 ```
 
 Change directory into the repository base folder:
 
 ```
-$ cd MAX-audio-classifier
+$ cd MAX-Audio-Classifier
 ```
 
 To build the Docker image locally, run:
