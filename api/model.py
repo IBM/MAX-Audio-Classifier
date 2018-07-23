@@ -59,10 +59,24 @@ class Predict(Resource):
         # clean up from earlier runs
         if os.path.exists("/audio.wav"):
             os.remove("/audio.wav")
-
-        file = open("/audio.wav", "wb")
-        file.write(audio_data)
-        file.close()
+        
+        if os.path.exists("/audio.mp3"):
+            os.remove("/audio.mp3")
+        
+        #If the file is an mp3 file
+        #   Read into mp3.
+        #   Convert mp3 into wav using ffmpeg.
+        #Else read into wav file directly.
+        if('.mp3' in str(args['audio'])):
+            file = open("/audio.mp3", "wb")
+            file.write(audio_data)
+            file.close()
+            os.system("ffmpeg -i /audio.mp3 /audio.wav")
+            os.remove("/audio.mp3")
+        else:
+            file = open("/audio.wav", "wb")
+            file.write(audio_data)
+            file.close()
 
         #Getting the predicions
         preds = self.mw.predict("/audio.wav")

@@ -11,6 +11,8 @@ ARG tf_version=1.8.0
 ARG scipy_version=0.19.1
 ARG six_version=1.10.0
 
+RUN apt-get update && apt-get install -y ffmpeg
+
 RUN pip install --upgrade pip && \
 	pip install numpy==${numpy_version} && \
     pip install tensorflow==${tf_version} && \
