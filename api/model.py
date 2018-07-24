@@ -73,10 +73,15 @@ class Predict(Resource):
             file.close()
             os.system("ffmpeg -i /audio.mp3 /audio.wav")
             os.remove("/audio.mp3")
-        else:
+        elif('.wav' in str(args['audio'])):
             file = open("/audio.wav", "wb")
             file.write(audio_data)
             file.close()
+        else:
+            result = {}
+            result['status'] = 'error - invalid input file type'
+            result['predictions'] = []
+            return result
 
         #Getting the predicions
         preds = self.mw.predict("/audio.wav")
