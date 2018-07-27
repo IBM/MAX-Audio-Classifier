@@ -1,5 +1,6 @@
 from flask_restplus import Namespace, Resource, fields
 from werkzeug.datastructures import FileStorage
+from werkzeug.exceptions import BadRequest
 
 from config import MODEL_META_DATA
 
@@ -78,10 +79,9 @@ class Predict(Resource):
             file.write(audio_data)
             file.close()
         else:
-            result = {}
-            result['status'] = 'error - invalid input file type'
-            result['predictions'] = []
-            return result
+            e = BadRequest()
+            e.data = {'status': 'error', 'message': 'Invalid file type/extension'}
+            raise e
 
         #Getting the predicions
         preds = self.mw.predict("/audio.wav")
