@@ -92,7 +92,7 @@ $ docker run -it -p 5000:5000 max-audio-classifier
 The API server automatically generates an interactive Swagger documentation page. Go to `http://localhost:5000` to load
 it. From there you can explore the API and also create test requests.
 
-_Note_ : The input to the core model is a 10 second signed 16-bit PCM wav audio file. Files longer than 10 seconds will be clipped so that only the first 10 seconds will be used by the model. Conversely, files shorter than 10 seconds will be repeated to create a clip 10 seconds in length. Additionally, mp3 file formats are supported as well. They are converted into `.wav` format as part of data pre-processing. The accuracy of predictions may be slightly different due to differences in mp3/wav encoding and decoding. For best results, it is recommended to use the `.wav` files directly.
+_Note_ : The input to the core model is a 10 second signed 16-bit PCM wav audio file. Files longer than 10 seconds will be clipped so that only the first 10 seconds will be used by the model. Conversely, files shorter than 10 seconds will be repeated to create a clip 10 seconds in length. Additionally, `.mp3` audio files are supported. They are converted into `.wav` format as part of data pre-processing. The accuracy of predictions may be slightly different due to differences in mp3/wav encoding and decoding. For best results, it is recommended to use the `.wav` files directly.
 
 Use the `model/predict` endpoint to load a signed 16-bit PCM wav audio file (you can use the `fireworks.wav` file located
 in the `assets` folder) and get predictions from the API.
