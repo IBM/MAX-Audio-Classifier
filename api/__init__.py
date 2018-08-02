@@ -6,8 +6,7 @@ from .model import api as model_ns
 api = Api(
     title=API_TITLE,
     version=API_VERSION,
-    description=API_DESC,
-    default='model',
-    default_label='Model information and inference operations')
+    description=API_DESC)
 
+api.namespaces.clear()
 api.add_namespace(model_ns)
