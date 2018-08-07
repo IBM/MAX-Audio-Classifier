@@ -47,15 +47,44 @@ arXiv:1609.09430, 2016.
 * `docker`: The [Docker](https://www.docker.com/) command-line interface. Follow the [installation instructions](https://docs.docker.com/install/) for your system.
 * The minimum recommended resources for this model is 8 GB Memory and 4 CPUs.
 
-## Steps
+# Steps
+
+1. [Deploy from Docker Hub](#deploy-from-docker-hub)
+2. [Deploy on Kubernetes](#deploy-on-kubernetes)
+3. [Run Locally](#run-locally)
+
+## Deploy from Docker Hub
+
+To run the docker image, which automatically starts the model serving API, run:
+
+```
+$ docker run -it -p 5000:5000 codait/max-audio-classifier
+```
+
+This will pull a pre-built image from Docker Hub (or use an existing image if already cached locally) and run it.
+If you'd rather checkout and build the model locally you can follow the [run locally](#run-locally) steps below.
+
+## Deploy on Kubernetes
+
+You can also deploy the model on Kubernetes using the latest docker image on Docker Hub.
+
+On your Kubernetes cluster, run the following commands:
+
+```
+$ kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Audio-Classifier/master/max-audio-classifier.yaml
+```
+
+The model will be available internally at port `5000`, but can also be accessed externally through the `NodePort`.
+
+## Run Locally
 
 1. [Build the Model](#1-build-the-model)
 2. [Deploy the Model](#2-deploy-the-model)
 3. [Use the Model](#3-use-the-model)
 4. [Development](#4-development)
-5. [Clean Up](#5-clean-up)
+5. [Cleanup](#5-cleanup)
 
-## 1. Build the Model
+### 1. Build the Model
 
 Clone this repository locally. In a terminal, run the following command:
 
@@ -79,7 +108,7 @@ All required model assets will be downloaded during the build process. _Note_ th
 only (we will add support for GPU images later).
 
 
-## 2. Deploy the Model
+### 2. Deploy the Model
 
 To run the Docker image, which automatically starts the model serving API, run:
 
@@ -87,7 +116,7 @@ To run the Docker image, which automatically starts the model serving API, run:
 $ docker run -it -p 5000:5000 max-audio-classifier
 ```
 
-## 3. Use the Model
+### 3. Use the Model
 
 The API server automatically generates an interactive Swagger documentation page. Go to `http://localhost:5000` to load
 it. From there you can explore the API and also create test requests.
@@ -102,7 +131,7 @@ in the `assets` folder) and get predictions from the API.
 You can also test it on the command line, for example (with the `thunder.wav` file):
 
 ```
-$ curl -F "audio=@assets/thunder.wav" -XPOST http://127.0.0.1:5000/model/predict
+$ curl -F "audio=@assets/thunder.wav" -XPOST http://localhost:5000/model/predict
 ```
 
 You should see a JSON response like that below:
@@ -140,11 +169,11 @@ You should see a JSON response like that below:
 }
 ```
 
-## 4. Development
+### 4. Development
 
 To run the Flask API app in debug mode, edit `config.py` to set `DEBUG = True` under the application settings. You will
 then need to rebuild the Docker image (see [step 1](#1-build-the-model)).
 
-## 5. Cleanup
+### 5. Cleanup
 
 To stop the Docker container, type `CTRL` + `C` in your terminal.
