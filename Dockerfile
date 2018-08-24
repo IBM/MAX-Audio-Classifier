@@ -1,9 +1,10 @@
-FROM continuumio/miniconda3
+FROM codait/max-base
 
-RUN mkdir -p /workspace/assets
-RUN wget -nv http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_model.ckpt && mv vggish_model.ckpt /workspace/assets/
-RUN wget -nv http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_pca_params.npz && mv vggish_pca_params.npz /workspace/assets/
-RUN wget -nv http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/classifier_model.h5 && mv classifier_model.h5 /workspace/assets/
+#RUN mkdir -p /workspace/assets
+
+RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_model.ckpt && mv vggish_model.ckpt /workspace/assets/
+RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_pca_params.npz && mv vggish_pca_params.npz /workspace/assets/
+RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/classifier_model.h5 && mv classifier_model.h5 /workspace/assets/
 
 # Python package versions
 ARG numpy_version=1.13.1
@@ -13,13 +14,11 @@ ARG six_version=1.10.0
 
 RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --upgrade pip && \
-	pip install numpy==${numpy_version} && \
+RUN pip install numpy==${numpy_version} && \
     pip install tensorflow==${tf_version} && \
     pip install scipy==${scipy_version} && \
     pip install resampy && \
     pip install six==${six_version} && \
-    pip install flask-restplus && \
     pip install pandas && \
     pip install keras && \
     pip install h5py && \
@@ -29,4 +28,4 @@ COPY . /workspace
 
 EXPOSE 5000
 
-CMD python workspace/app.py
+CMD python app.py
