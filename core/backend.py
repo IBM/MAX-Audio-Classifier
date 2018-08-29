@@ -64,7 +64,7 @@ class ModelWrapper(object):
         class_scores = output_tensor.eval(feed_dict={input_tensor: processed_embeddings}, session=self.session_classify)
         return class_scores
     
-    def predict(self, wav_file):
+    def predict(self, wav_file, time_stamp):
         """
         Driver function that performs all core tasks.
         Input args:
@@ -75,7 +75,7 @@ class ModelWrapper(object):
         #Step1: Generate the embeddings.
         raw_embeddings = self.generate_embeddings(wav_file)
         #Step2: Process the embeddings before sending it to the classifier.
-        embeddings_processed = self.classifier_pre_process(raw_embeddings)
+        embeddings_processed = self.classifier_pre_process(raw_embeddings, time_stamp)
         #Step3: Classify the embeddings.
         raw_preds = self.classify_embeddings(embeddings_processed)
         #Step4: Post process the raw prediction vectors to a more interpretable format.
@@ -83,7 +83,7 @@ class ModelWrapper(object):
         return preds
 
         
-    def classifier_pre_process(self, embeddings):
+    def classifier_pre_process(self, embeddings, time_stamp):
         """
         Helper function to make sure input to classifier the model is of standard size.
         * Augments audio embeddings shorter than 10 seconds (10x128 tensor) to a multiple of itself 
@@ -96,6 +96,9 @@ class ModelWrapper(object):
         Returns:
             embeddings = numpy array of shape (1,10,128), dtype=float32.
         """
+        if 0 < time_stamp < embeddings.shape[0]:
+            embeddings = embeddings[time_stamp:time_stamp+10,:]
+
         l = embeddings.shape[0]
         if(l<10):
             while(l<10):

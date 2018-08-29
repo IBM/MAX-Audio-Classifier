@@ -41,6 +41,7 @@ predict_response = api.model('ModelPredictResponse', {
 # set up parser for audio input data
 audio_parser = api.parser()
 audio_parser.add_argument('audio', type=FileStorage, location='files', required=True)
+audio_parser.add_argument('start_time', type=float, default=0, help='The time stamp in the audio file to run prediction at. Prediction will be run on the following 10 sec. If it\'s larger than audio\'s duration it will be ignored.')
 
 
 @api.route('/predict')
@@ -63,7 +64,7 @@ class Predict(Resource):
         
         if os.path.exists("/audio.mp3"):
             os.remove("/audio.mp3")
-        
+
         #If the file is an mp3 file
         #   Read into mp3.
         #   Convert mp3 into wav using ffmpeg.
@@ -84,7 +85,7 @@ class Predict(Resource):
             raise e
 
         #Getting the predicions
-        preds = self.mw.predict("/audio.wav")
+        preds = self.mw.predict("/audio.wav", int(args['start_time']))
         
         #Aligning the predictions to the required API format
         label_preds = [{'label_id': p[0], 'label': p[1], 'probability': p[2]} for p in preds]
