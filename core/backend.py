@@ -98,6 +98,8 @@ class ModelWrapper(object):
         """
         if 0 < time_stamp < embeddings.shape[0]:
             embeddings = embeddings[time_stamp:time_stamp+10,:]
+        elif time_stamp < 0 or time_stamp >= embeddings.shape[0]:
+            raise ValueError('Invalid time stamp: value outside audio clip')
 
         l = embeddings.shape[0]
         if(l<10):
