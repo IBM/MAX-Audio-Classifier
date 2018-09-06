@@ -85,7 +85,12 @@ class Predict(Resource):
             raise e
 
         #Getting the predicions
-        preds = self.mw.predict("/audio.wav", int(args['start_time']))
+        try:
+            preds = self.mw.predict("/audio.wav", int(args['start_time']))
+        except ValueError:
+            e = BadRequest()
+            e.data = {'status': 'error', 'message': 'Invalid start time: value outside audio clip'}
+            raise e
         
         #Aligning the predictions to the required API format
         label_preds = [{'label_id': p[0], 'label': p[1], 'probability': p[2]} for p in preds]

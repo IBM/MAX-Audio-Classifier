@@ -86,6 +86,7 @@ class ModelWrapper(object):
     def classifier_pre_process(self, embeddings, time_stamp):
         """
         Helper function to make sure input to classifier the model is of standard size.
+        * Clips/Crops audio clips embeddings to start at time_stamp if not default and throws error if invalid
         * Augments audio embeddings shorter than 10 seconds (10x128 tensor) to a multiple of itself 
         closest to 10 seconds.
         * Clips/Crops audio clips embeddings than 10 seconds to 10 seconds.
@@ -96,10 +97,14 @@ class ModelWrapper(object):
         Returns:
             embeddings = numpy array of shape (1,10,128), dtype=float32.
         """
-        if 0 < time_stamp < embeddings.shape[0]:
-            embeddings = embeddings[time_stamp:time_stamp+10,:]
-        elif time_stamp < 0 or time_stamp >= embeddings.shape[0]:
-            raise ValueError('Invalid time stamp: value outside audio clip')
+        ts_adjusted = time_stamp / vggish_params.EXAMPLE_HOP_SECONDS
+        embeddings_len = embeddings.shape[0]
+        if 0 < ts_adjusted < embeddings_len:
+            end_ts = ts_adjusted + 10
+            end_ts = end_ts if end_ts < embeddings_len else embeddings_len - 1
+            embeddings = embeddings[ts_adjusted:end_ts,:]
+        elif ts_adjusted < 0 or ts_adjusted >= embeddings_len:
+            raise ValueError
 
         l = embeddings.shape[0]
         if(l<10):
