@@ -97,11 +97,11 @@ class ModelWrapper(object):
         Returns:
             embeddings = numpy array of shape (1,10,128), dtype=float32.
         """
-        ts_adjusted = time_stamp / vggish_params.EXAMPLE_HOP_SECONDS
+        ts_adjusted = int(time_stamp / vggish_params.EXAMPLE_HOP_SECONDS)
         embeddings_len = embeddings.shape[0]
         if 0 < ts_adjusted < embeddings_len:
             end_ts = ts_adjusted + 10
-            end_ts = end_ts if end_ts < embeddings_len else embeddings_len - 1
+            end_ts = end_ts if end_ts < embeddings_len else embeddings_len
             embeddings = embeddings[ts_adjusted:end_ts,:]
         elif ts_adjusted < 0 or ts_adjusted >= embeddings_len:
             raise ValueError
