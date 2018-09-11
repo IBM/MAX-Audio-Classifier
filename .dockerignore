@@ -1,3 +1,7 @@
 Dockerfile
 README.*
 docs/
+.git/
+tests/
+.travis.yml
+.idea/
