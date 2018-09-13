@@ -1,13 +1,9 @@
 from flask_restplus import Namespace, Resource, fields
 from werkzeug.datastructures import FileStorage
 from werkzeug.exceptions import BadRequest
-
 from config import MODEL_META_DATA
-
 from core.backend import ModelWrapper
 import os
-import numpy as np
-import pandas as pd
 
 api = Namespace('model', description='Model information and inference operations')
 
@@ -27,20 +23,22 @@ class Model(Resource):
         """Return the metadata associated with the model"""
         return MODEL_META_DATA
 
+
 label_prediction = api.model('LabelPrediction', {
     'label_id': fields.String(required=False, description='Label identifier'),
-    'label': fields.String(required=True, description='Class label'),
+    'label': fields.String(required=True, description='Audio class label'),
     'probability': fields.Float(required=True)
 })
 
 predict_response = api.model('ModelPredictResponse', {
     'status': fields.String(required=True, description='Response status message'),
-    'predictions': fields.List(fields.Nested(label_prediction), description='Predicted labels and probabilities')
+    'predictions': fields.List(fields.Nested(label_prediction), description='Predicted audio classes and probabilities')
 })
 
 # set up parser for audio input data
 audio_parser = api.parser()
-audio_parser.add_argument('audio', type=FileStorage, location='files', required=True)
+audio_parser.add_argument('audio', type=FileStorage, location='files', required=True,
+                          help="signed 16-bit PCM WAV audio file")
 
 
 @api.route('/predict')
@@ -61,7 +59,7 @@ class Predict(Resource):
         if os.path.exists("/audio.wav"):
             os.remove("/audio.wav")
         
-        if('.wav' in str(args['audio'])):
+        if '.wav' in str(args['audio']):
             file = open("/audio.wav", "wb")
             file.write(audio_data)
             file.close()
@@ -70,10 +68,10 @@ class Predict(Resource):
             e.data = {'status': 'error', 'message': 'Invalid file type/extension'}
             raise e
 
-        #Getting the predicions
+        # Getting the predictions
         preds = self.mw.predict("/audio.wav")
         
-        #Aligning the predictions to the required API format
+        # Aligning the predictions to the required API format
         label_preds = [{'label_id': p[0], 'label': p[1], 'probability': p[2]} for p in preds]
         result['predictions'] = label_preds
         result['status'] = 'ok'
