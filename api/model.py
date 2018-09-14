@@ -69,7 +69,7 @@ class Predict(Resource):
             e.data = {'status': 'error', 'message': 'Invalid file type/extension'}
             raise e
 
-        # Getting the predicions
+        # Getting the predictions
         try:
             preds = self.mw.predict("/audio.wav", args['start_time'])
         except ValueError:
