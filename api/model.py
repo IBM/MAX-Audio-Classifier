@@ -39,7 +39,7 @@ predict_response = api.model('ModelPredictResponse', {
 audio_parser = api.parser()
 audio_parser.add_argument('audio', type=FileStorage, location='files', required=True,
                           help="signed 16-bit PCM WAV audio file")
-audio_parser.add_argument('start_time', type=float, default=0, help='The time (in seconds) in the audio file to run prediction at.')
+audio_parser.add_argument('start_time', type=float, default=0, help='The number of seconds into the audio file the prediction should start at.')
 
 
 @api.route('/predict')
