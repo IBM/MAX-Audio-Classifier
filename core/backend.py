@@ -64,7 +64,7 @@ class ModelWrapper(object):
         class_scores = output_tensor.eval(feed_dict={input_tensor: processed_embeddings}, session=self.session_classify)
         return class_scores
     
-    def predict(self, wav_file):
+    def predict(self, wav_file, time_stamp):
         """
         Driver function that performs all core tasks.
         Input args:
@@ -75,7 +75,7 @@ class ModelWrapper(object):
         #Step1: Generate the embeddings.
         raw_embeddings = self.generate_embeddings(wav_file)
         #Step2: Process the embeddings before sending it to the classifier.
-        embeddings_processed = self.classifier_pre_process(raw_embeddings)
+        embeddings_processed = self.classifier_pre_process(raw_embeddings, time_stamp)
         #Step3: Classify the embeddings.
         raw_preds = self.classify_embeddings(embeddings_processed)
         #Step4: Post process the raw prediction vectors to a more interpretable format.
@@ -83,9 +83,10 @@ class ModelWrapper(object):
         return preds
 
         
-    def classifier_pre_process(self, embeddings):
+    def classifier_pre_process(self, embeddings, time_stamp):
         """
         Helper function to make sure input to classifier the model is of standard size.
+        * Clips/Crops audio clips embeddings to start at time_stamp if not default and throws error if invalid
         * Augments audio embeddings shorter than 10 seconds (10x128 tensor) to a multiple of itself 
         closest to 10 seconds.
         * Clips/Crops audio clips embeddings than 10 seconds to 10 seconds.
@@ -96,6 +97,15 @@ class ModelWrapper(object):
         Returns:
             embeddings = numpy array of shape (1,10,128), dtype=float32.
         """
+        embeddings_ts = int(time_stamp / vggish_params.EXAMPLE_HOP_SECONDS)
+        embeddings_len = embeddings.shape[0]
+        if 0 < embeddings_ts < embeddings_len:
+            end_ts = embeddings_ts + 10
+            end_ts = end_ts if end_ts < embeddings_len else embeddings_len
+            embeddings = embeddings[embeddings_ts:end_ts,:]
+        elif embeddings_ts < 0 or embeddings_ts >= embeddings_len:
+            raise ValueError
+
         l = embeddings.shape[0]
         if(l<10):
             while(l<10):

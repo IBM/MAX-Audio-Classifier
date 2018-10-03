@@ -39,6 +39,7 @@ predict_response = api.model('ModelPredictResponse', {
 audio_parser = api.parser()
 audio_parser.add_argument('audio', type=FileStorage, location='files', required=True,
                           help="signed 16-bit PCM WAV audio file")
+audio_parser.add_argument('start_time', type=float, default=0, help='The number of seconds into the audio file the prediction should start at.')
 
 
 @api.route('/predict')
@@ -69,7 +70,12 @@ class Predict(Resource):
             raise e
 
         # Getting the predictions
-        preds = self.mw.predict("/audio.wav")
+        try:
+            preds = self.mw.predict("/audio.wav", args['start_time'])
+        except ValueError:
+            e = BadRequest()
+            e.data = {'status': 'error', 'message': 'Invalid start time: value outside audio clip'}
+            raise e
         
         # Aligning the predictions to the required API format
         label_preds = [{'label_id': p[0], 'label': p[1], 'probability': p[2]} for p in preds]
