@@ -1,8 +1,7 @@
 FROM codait/max-base
 
-RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_model.ckpt && mv vggish_model.ckpt /workspace/assets/
-RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_pca_params.npz && mv vggish_pca_params.npz /workspace/assets/
-RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/classifier_model.h5 && mv classifier_model.h5 /workspace/assets/
+RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audio-classifier/assets.tar.gz && mv assets.tar.gz /workspace/assets/
+RUN tar -x -C /workspace/assets -f /workspace/assets/assets.tar.gz -v && rm /workspace/assets/assets.tar.gz
 
 COPY requirements.txt /workspace
 RUN pip install -r requirements.txt
