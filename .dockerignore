@@ -4,3 +4,4 @@ docs/
 tests/
 .travis.yml
 .idea/
+assets/*.wav
