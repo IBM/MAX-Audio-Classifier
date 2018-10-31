@@ -1,4 +1,4 @@
-# IBM Code Model Asset Exchange: Audio Classifier
+# IBM Developer Model Asset Exchange: Audio Classifier
 
 This repository contains code to instantiate and deploy an audio classification model. This model recognizes a signed 16-bit
 PCM wav file as an input, generates embeddings, applies
