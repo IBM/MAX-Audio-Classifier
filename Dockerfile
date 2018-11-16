@@ -1,7 +1,12 @@
 FROM codait/max-base
 
-RUN wget -nv --show-progress --progress=bar:force:noscroll http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audio-classifier/assets.tar.gz && mv assets.tar.gz /workspace/assets/
-RUN tar -x -C /workspace/assets -f /workspace/assets/assets.tar.gz -v && rm /workspace/assets/assets.tar.gz
+ARG model_bucket=http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audio-classifier
+ARG model_file=assets.tar.gz
+
+WORKDIR /workspace
+
+RUN wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=/workspace/assets/${model_file}
+RUN tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file}
 
 COPY requirements.txt /workspace
 RUN pip install -r requirements.txt
