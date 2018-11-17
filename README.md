@@ -4,7 +4,7 @@ This repository contains code to instantiate and deploy an audio classification 
 PCM wav file as an input, generates embeddings, applies
 [PCA transformation/quantization](https://github.com/tensorflow/models/tree/master/research/audioset#output-embeddings),
 uses the embeddings as an input to a multi-attention classifier and outputs top 5 class predictions and probabilities as output. 
-The model currently supports 527 classes which are part of the [Audioset Ontology](https://research.google.com/audioset/ontology/index.html). The classes and the label_ids can be found in [class_labels_indices.csv](assets/class_labels_indices.csv). 
+The model currently supports 527 classes which are part of the [Audioset Ontology](https://research.google.com/audioset/ontology/index.html). The classes and the label_ids can be found in [class_labels_indices.csv](https://github.com/IBM/MAX-Audio-Classifier/blob/master/assets/class_labels_indices.csv). 
 The model was trained on [AudioSet](https://research.google.com/audioset/) as described in the paper ['Multi-level Attention Model for Weakly Supervised Audio Classification'](https://arxiv.org/abs/1803.02353) by Yu et al.
 
 The model has been tested across multiple audio classes, however it tends to perform best for Music / Speech categories. This is largely due to the bias towards these classes in the training dataset (90% of audio belong to either of these categories). Though the model is trained on data from Audioset which was extracted from YouTube videos, the model can be applied to a wide range of audio files outside the domain of music/speech. The test assets provided along with this model provide a broad range.
