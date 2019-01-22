@@ -1,8 +1,8 @@
-# Flask settings 
-DEBUG=False
+# Flask settings
+DEBUG = False
 
 # Flask-restplus settings
-RESTPLUS_MASK_SWAGGER=False
+RESTPLUS_MASK_SWAGGER = False
 
 # Application settings
 
