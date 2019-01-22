@@ -11,7 +11,7 @@ The model has been tested across multiple audio classes, however it tends to per
 
 The model files are hosted on IBM Cloud Object Storage. The code in this repository deploys the model as a web service
 in a Docker container. This repository was developed as part of the
-[IBM Code Model Asset Exchange](https://developer.ibm.com/code/exchanges/models/).
+[IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/).
 
 ## Model Metadata
 | Domain | Application | Industry  | Framework | Training Data | Input Data Format |
