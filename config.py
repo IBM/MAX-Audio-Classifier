@@ -7,8 +7,8 @@ RESTPLUS_MASK_SWAGGER = False
 # Application settings
 
 # API metadata
-API_TITLE = 'Model Asset Exchange Server'
-API_DESC = 'An API for serving models'
+API_TITLE = 'MAX Audio Classifier'
+API_DESC = 'Identify sounds in short audio clips.'
 API_VERSION = '0.1'
 
 # default model

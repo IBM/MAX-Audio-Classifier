@@ -6,8 +6,9 @@ services:
 install:
   - docker build -t max-audio-classifier .
   - docker run -it -d -p 5000:5000 max-audio-classifier
-  - sleep 30
+  - pip install pytest requests flake8
 before_script:
-  - pip install pytest requests
+  - flake8 . --max-line-length=127
+  - sleep 30
 script:
   - pytest tests/test.py
