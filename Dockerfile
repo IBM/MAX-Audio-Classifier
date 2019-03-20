@@ -1,4 +1,4 @@
-FROM codait/max-base:v1.0.0
+FROM codait/max-base:v1.1.1
 
 ARG model_bucket=http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audio-classifier
 ARG model_file=assets.tar.gz
