@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/IBM/MAX-Audio-Classifier.svg?branch=master)](https://travis-ci.com/IBM/MAX-Audio-Classifier) [![Website Status](https://img.shields.io/website/http/max-audio-classifier.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-audio-classifier.max.us-south.containers.appdomain.cloud/)
+
 # IBM Developer Model Asset Exchange: Audio Classifier
 
 This repository contains code to instantiate and deploy an audio classification model. This model recognizes a signed 16-bit
