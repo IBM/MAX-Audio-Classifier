@@ -8,7 +8,7 @@ RESTPLUS_MASK_SWAGGER = False
 
 # API metadata
 API_TITLE = 'MAX Audio Classifier'
-API_DESC = 'Identify sounds in short audio clips.'
+API_DESC = 'Identify sounds in short audio clips'
 API_VERSION = '1.1.0'
 
 # default model
