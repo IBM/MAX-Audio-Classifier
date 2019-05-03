@@ -1,8 +1,8 @@
 numpy==1.13.1
 tensorflow==1.8.0
 scipy==0.19.1
-resampy
+resampy==0.2.1
 six==1.10.0
-pandas
-keras
-h5py
+pandas==0.24.2
+keras==2.2.4
+h5py==2.9.0
