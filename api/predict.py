@@ -12,7 +12,7 @@ input_parser.add_argument('audio', type=FileStorage, location='files', required=
                           help="signed 16-bit PCM WAV audio file")
 input_parser.add_argument('start_time', type=float, default=0,
                           help='The number of seconds into the audio file the prediction should start at.')
-
+input_parser.add_argument('filter', required=False, action='split', help='List of labels to filter (optional)')
 
 label_prediction = MAX_API.model('LabelPrediction', {
     'label_id': fields.String(required=False, description='Label identifier'),
@@ -63,6 +63,11 @@ class ModelPredictAPI(PredictAPI):
 
         # Aligning the predictions to the required API format
         label_preds = [{'label_id': p[0], 'label': p[1], 'probability': p[2]} for p in preds]
+
+        # Filter list
+        if args['filter'] is not None and args['filter'] != ['']:
+            label_preds = [x for x in label_preds if x['label'] in args['filter']]
+
         result['predictions'] = label_preds
         result['status'] = 'ok'
 
