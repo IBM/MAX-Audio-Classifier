@@ -1,4 +1,4 @@
-FROM codait/max-base:v1.1.13
+FROM codait/max-base:v1.1.3
 
 ARG model_bucket=https://max-assets.s3.us.cloud-object-storage.appdomain.cloud/audio-classifier
 ARG model_file=assets.tar.gz
