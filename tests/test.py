@@ -71,6 +71,27 @@ def test_empty_filter():
     assert response['predictions'][0]['probability'] > 0.5
 
 
+def test_multi_empty_filter():
+
+    model_endpoint = 'http://localhost:5000/model/predict?filter=,,'
+    file_path = 'assets/gunshots.wav'
+
+    with open(file_path, 'rb') as file:
+        file_form = {'audio': (file_path, file, 'audio/wav')}
+        r = requests.post(url=model_endpoint, files=file_form)
+
+    assert r.status_code == 200
+
+    response = r.json()
+
+    assert response['status'] == 'ok'
+    assert len(response['predictions']) >= 5
+
+    assert response['predictions'][0]['label_id'] == '/m/032s66'
+    assert response['predictions'][0]['label'] == 'Gunshot, gunfire'
+    assert response['predictions'][0]['probability'] > 0.5
+
+
 def test_filter():
 
     model_endpoint = 'http://localhost:5000/model/predict?filter=Cap%20gun'

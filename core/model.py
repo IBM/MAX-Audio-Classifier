@@ -66,7 +66,7 @@ class ModelWrapper(MAXModelWrapper):
         class_scores = output_tensor.eval(feed_dict={input_tensor: processed_embeddings}, session=self.session_classify)
         return class_scores
 
-    def predict(self, wav_file, time_stamp):
+    def _predict(self, wav_file, time_stamp):
         """
         Driver function that performs all core tasks.
         Input args:
