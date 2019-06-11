@@ -50,5 +50,93 @@ def test_predict():
     assert response['predictions'][0]['probability'] > 0.4
 
 
+def test_empty_filter():
+
+    model_endpoint = 'http://localhost:5000/model/predict?filter='
+    file_path = 'assets/gunshots.wav'
+
+    with open(file_path, 'rb') as file:
+        file_form = {'audio': (file_path, file, 'audio/wav')}
+        r = requests.post(url=model_endpoint, files=file_form)
+
+    assert r.status_code == 200
+
+    response = r.json()
+
+    assert response['status'] == 'ok'
+    assert len(response['predictions']) >= 5
+
+    assert response['predictions'][0]['label_id'] == '/m/032s66'
+    assert response['predictions'][0]['label'] == 'Gunshot, gunfire'
+    assert response['predictions'][0]['probability'] > 0.5
+
+
+def test_multi_empty_filter():
+
+    model_endpoint = 'http://localhost:5000/model/predict?filter=,,'
+    file_path = 'assets/gunshots.wav'
+
+    with open(file_path, 'rb') as file:
+        file_form = {'audio': (file_path, file, 'audio/wav')}
+        r = requests.post(url=model_endpoint, files=file_form)
+
+    assert r.status_code == 200
+
+    response = r.json()
+
+    assert response['status'] == 'ok'
+    assert len(response['predictions']) >= 5
+
+    assert response['predictions'][0]['label_id'] == '/m/032s66'
+    assert response['predictions'][0]['label'] == 'Gunshot, gunfire'
+    assert response['predictions'][0]['probability'] > 0.5
+
+
+def test_filter():
+
+    model_endpoint = 'http://localhost:5000/model/predict?filter=Cap%20gun'
+    file_path = 'assets/gunshots.wav'
+
+    with open(file_path, 'rb') as file:
+        file_form = {'audio': (file_path, file, 'audio/wav')}
+        r = requests.post(url=model_endpoint, files=file_form)
+
+    assert r.status_code == 200
+
+    response = r.json()
+
+    assert response['status'] == 'ok'
+    assert len(response['predictions']) == 1
+
+    assert response['predictions'][0]['label_id'] == '/m/073cg4'
+    assert response['predictions'][0]['label'] == 'Cap gun'
+    assert response['predictions'][0]['probability'] > 0.2
+
+
+def test_multi_filter():
+
+    model_endpoint = 'http://localhost:5000/model/predict?filter=Clang,Ding'
+    file_path = 'assets/gunshots.wav'
+
+    with open(file_path, 'rb') as file:
+        file_form = {'audio': (file_path, file, 'audio/wav')}
+        r = requests.post(url=model_endpoint, files=file_form)
+
+    assert r.status_code == 200
+
+    response = r.json()
+
+    assert response['status'] == 'ok'
+    assert len(response['predictions']) == 2
+
+    assert response['predictions'][0]['label_id'] == '/m/07rv4dm'
+    assert response['predictions'][0]['label'] == 'Clang'
+    assert response['predictions'][0]['probability'] > 0.1
+
+    assert response['predictions'][1]['label_id'] == '/m/07phxs1'
+    assert response['predictions'][1]['label'] == 'Ding'
+    assert response['predictions'][1]['probability'] > 0.09
+
+
 if __name__ == '__main__':
     pytest.main([__file__])
