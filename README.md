@@ -1,19 +1,21 @@
 [![Build Status](https://travis-ci.com/IBM/MAX-Audio-Classifier.svg?branch=master)](https://travis-ci.com/IBM/MAX-Audio-Classifier) [![Website Status](https://img.shields.io/website/http/max-audio-classifier.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-audio-classifier.max.us-south.containers.appdomain.cloud/)
 
+[<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
+
 # IBM Developer Model Asset Exchange: Audio Classifier
 
 This repository contains code to instantiate and deploy an audio classification model. This model recognizes a signed 16-bit
 PCM wav file as an input, generates embeddings, applies
 [PCA transformation/quantization](https://github.com/tensorflow/models/tree/master/research/audioset#output-embeddings),
 uses the embeddings as an input to a multi-attention classifier and outputs top 5 class predictions and probabilities as output. 
-The model currently supports 527 classes which are part of the [Audioset Ontology](https://research.google.com/audioset/ontology/index.html). The classes and the label_ids can be found in [class_labels_indices.csv](assets/class_labels_indices.csv). 
+The model currently supports 527 classes which are part of the [Audioset Ontology](https://research.google.com/audioset/ontology/index.html). The classes and the label_ids can be found in [class_labels_indices.csv](samples/class_labels_indices.csv). 
 The model was trained on [AudioSet](https://research.google.com/audioset/) as described in the paper ['Multi-level Attention Model for Weakly Supervised Audio Classification'](https://arxiv.org/abs/1803.02353) by Yu et al.
 
 The model has been tested across multiple audio classes, however it tends to perform best for Music / Speech categories. This is largely due to the bias towards these classes in the training dataset (90% of audio belong to either of these categories). Though the model is trained on data from Audioset which was extracted from YouTube videos, the model can be applied to a wide range of audio files outside the domain of music/speech. The test assets provided along with this model provide a broad range.
 
 The model files are hosted on IBM Cloud Object Storage. The code in this repository deploys the model as a web service
 in a Docker container. This repository was developed as part of the
-[IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/).
+[IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
 
 ## Model Metadata
 | Domain | Application | Industry  | Framework | Training Data | Input Data Format |
@@ -41,7 +43,7 @@ arXiv:1609.09430, 2016.
 | This repository | [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) | [LICENSE](LICENSE) |
 | Model Files | [Apache 2.0](https://github.com/tensorflow/models/blob/master/LICENSE) | [AudioSet](https://github.com/tensorflow/models/tree/master/research/audioset) |
 | Model Code | [MIT](https://github.com/qiuqiangkong/audioset_classification/blob/master/LICENSE.txt) | [AudioSet Classification](https://github.com/qiuqiangkong/audioset_classification) |
-| Test assets | Various | [Asset README](assets/README.md) |
+| Test Samples | Various | [Samples README](samples/README.md) |
 
 
 ## Pre-requisites:
@@ -77,6 +79,8 @@ $ kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Audio-Classifier/ma
 ```
 
 The model will be available internally at port `5000`, but can also be accessed externally through the `NodePort`.
+
+A more elaborate tutorial on how to deploy this MAX model to production on [IBM Cloud](https://ibm.biz/Bdz2XM) can be found [here](http://ibm.biz/max-to-ibm-cloud-tutorial)
 
 ## Run Locally
 
@@ -126,14 +130,14 @@ it. From there you can explore the API and also create test requests.
 _Note_ : The input is a 10 second signed 16-bit PCM wav audio file. Files longer than 10 seconds will be clipped so that only the first 10 seconds will be used by the model. Conversely, files shorter than 10 seconds will be repeated to create a clip 10 seconds in length.
 
 Use the `model/predict` endpoint to load a signed 16-bit PCM wav audio file (you can use the `fireworks.wav` file located
-in the `assets` folder) and get predictions from the API.
+in the `samples` folder) and get predictions from the API.
 
 ![Swagger Doc Screenshot](docs/demo_screenshot.png)
 
 You can also test it on the command line, for example (with the `thunder.wav` file):
 
 ```
-$ curl -F "audio=@assets/thunder.wav" -XPOST http://localhost:5000/model/predict
+$ curl -F "audio=@samples/thunder.wav" -XPOST http://localhost:5000/model/predict
 ```
 
 You should see a JSON response like that below:
