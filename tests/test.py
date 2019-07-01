@@ -28,7 +28,7 @@ def test_swagger():
     json = r.json()
     assert 'swagger' in json
     assert json.get('info') and json.get('info').get('title') == 'MAX Audio Classifier'
-    assert json.get('info').get('version') == '1.1.0'
+    assert json.get('info').get('version') == '1.2.0'
     assert json.get('info').get('description') == 'Identify sounds in short audio clips'
 
 
