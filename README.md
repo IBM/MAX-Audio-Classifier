@@ -130,7 +130,7 @@ it. From there you can explore the API and also create test requests.
 _Note_ : The input is a 10 second signed 16-bit PCM wav audio file. Files longer than 10 seconds will be clipped so that only the first 10 seconds will be used by the model. Conversely, files shorter than 10 seconds will be repeated to create a clip 10 seconds in length.
 
 Use the `model/predict` endpoint to load a signed 16-bit PCM wav audio file (you can use the `fireworks.wav` file located
-in the `assets` folder) and get predictions from the API.
+in the `samples` folder) and get predictions from the API.
 
 ![Swagger Doc Screenshot](docs/demo_screenshot.png)
 
