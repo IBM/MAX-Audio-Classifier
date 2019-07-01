@@ -52,7 +52,7 @@ class ModelWrapper(MAXModelWrapper):
         self.pproc = vggish_postprocess.Postprocessor(pca_params)
 
         # Metadata
-        self.indices = pd.read_csv('/workspace/assets/class_labels_indices.csv')
+        self.indices = pd.read_csv('/workspace/samples/class_labels_indices.csv')
 
     def generate_embeddings(self, wav_file):
         """
