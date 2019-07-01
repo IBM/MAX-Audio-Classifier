@@ -1,15 +1,4 @@
-# Asset Details
-
-## Model files
-
-Model files are from the [Tensorflow/models Github](https://github.com/tensorflow/models/tree/master/research/audioset),
-where they are available under an [Apache 2.0 License](https://github.com/tensorflow/models/blob/master/LICENSE).
-
-_Note_ the model [checkpoint](http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_model.ckpt), [classifier model](http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/classifier_model.h5)
-and [PCA parameters](http://max-assets.s3-api.us-geo.objectstorage.softlayer.net/audioset/vggish_pca_params.npz) are
-hosted on IBM Cloud Object Storage.
-## Metadata
-[class_labels_indices.csv](class_labels_indices.csv) contains all the classes from Audioset Ontology and is licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+# Sample Details
 
 ## Audio Samples
 
@@ -32,3 +21,6 @@ All the audio samples provided as test assets here come from freesound.org and a
 *    [cinematic.wav](https://freesound.org/people/Hoerspielwerkstatt_HEF/sounds/428676/) by [Hoerspielwerkstatt_HEF](https://freesound.org/people/Hoerspielwerkstatt_HEF/) | <span style="color:gray">License:</span> Attribution
 *    [siren.wav](https://freesound.org/people/wolferCZ/sounds/395400/) by [wolferCZ](https://freesound.org/people/wolferCZ/) | <span style="color:gray">License:</span> Creative Commons 0
 *    [guitar.wav](https://freesound.org/people/User391915396/sounds/389401/) by [User391915396](https://freesound.org/people/User391915396/) | <span style="color:gray">License:</span> Creative Commons 
+
+## Metadata
+[class_labels_indices.csv](class_labels_indices.csv) contains all the classes from Audioset Ontology and is licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
