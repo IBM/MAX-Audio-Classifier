@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/IBM/MAX-Audio-Classifier.svg?branch=master)](https://travis-ci.com/IBM/MAX-Audio-Classifier) [![Website Status](https://img.shields.io/website/http/max-audio-classifier.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-audio-classifier.max.us-south.containers.appdomain.cloud/)
 
+[<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
+
 # IBM Developer Model Asset Exchange: Audio Classifier
 
 This repository contains code to instantiate and deploy an audio classification model. This model recognizes a signed 16-bit
@@ -13,7 +15,7 @@ The model has been tested across multiple audio classes, however it tends to per
 
 The model files are hosted on IBM Cloud Object Storage. The code in this repository deploys the model as a web service
 in a Docker container. This repository was developed as part of the
-[IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/).
+[IBM Developer Model Asset Exchange](https://developer.ibm.com/exchanges/models/) and the public API is powered by [IBM Cloud](https://ibm.biz/Bdz2XM).
 
 ## Model Metadata
 | Domain | Application | Industry  | Framework | Training Data | Input Data Format |
@@ -77,6 +79,8 @@ $ kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Audio-Classifier/ma
 ```
 
 The model will be available internally at port `5000`, but can also be accessed externally through the `NodePort`.
+
+A more elaborate tutorial on how to deploy this MAX model to production on [IBM Cloud](https://ibm.biz/Bdz2XM) can be found [here](http://ibm.biz/max-to-ibm-cloud-tutorial)
 
 ## Run Locally
 
