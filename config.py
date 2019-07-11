@@ -39,6 +39,6 @@ MODEL_META_DATA = {
     'license': '{}'.format(MODEL_LICENSE)
 }
 
-DEFAULT_EMBEDDING_CHECKPOINT = "/workspace/assets/vggish_model.ckpt"
-DEFAULT_PCA_PARAMS = "/workspace/assets/vggish_pca_params.npz"
-DEFAULT_CLASSIFIER_MODEL = "/workspace/assets/classifier_model.h5"
+DEFAULT_EMBEDDING_CHECKPOINT = "assets/vggish_model.ckpt"
+DEFAULT_PCA_PARAMS = "assets/vggish_pca_params.npz"
+DEFAULT_CLASSIFIER_MODEL = "assets/classifier_model.h5"
