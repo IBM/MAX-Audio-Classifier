@@ -55,22 +55,9 @@ class ModelPredictAPI(PredictAPI):
         args = input_parser.parse_args()
         audio_data = args['audio'].read()
 
-        # clean up from earlier runs
-        if os.path.exists("audio.wav"):
-            os.remove("audio.wav")
-
-        if '.wav' in str(args['audio']):
-            file = open("audio.wav", "wb")
-            file.write(audio_data)
-            file.close()
-        else:
-            e = BadRequest()
-            e.data = {'status': 'error', 'message': 'Invalid file type/extension'}
-            raise e
-
         # Getting the predictions
         try:
-            preds = self.model_wrapper._predict("audio.wav", args['start_time'])
+            preds = self.model_wrapper._predict(audio_data, args['start_time'])
         except ValueError:
             e = BadRequest()
             e.data = {'status': 'error', 'message': 'Invalid start time: value outside audio clip'}
@@ -85,7 +72,5 @@ class ModelPredictAPI(PredictAPI):
 
         result['predictions'] = label_preds
         result['status'] = 'ok'
-
-        os.remove("audio.wav")
 
         return result

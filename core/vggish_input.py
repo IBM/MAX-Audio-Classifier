@@ -22,7 +22,7 @@ from scipy.io import wavfile
 from . import mel_features
 from . import vggish_params
 import sys
-
+from io import BytesIO
 
 def waveform_to_examples(data, sample_rate):
     """Converts audio waveform into an array of examples for VGGish.
@@ -71,7 +71,7 @@ def waveform_to_examples(data, sample_rate):
     return log_mel_examples
 
 
-def wavfile_to_examples(wav_file):
+def wavfile_to_examples(wav_data):
     """Convenience wrapper around waveform_to_examples() for a common WAV format.
 
     Args:
@@ -82,7 +82,8 @@ def wavfile_to_examples(wav_file):
       See waveform_to_examples.
     """
     try:
-        sr, wav_data = wavfile.read(wav_file)
+        wav_file = BytesIO(wav_data)
+        sr, wav_data = wavfile.read(wav_data)
     except IOError:
         print("Error reading WAV file!")
         print("The specified WAV file type is not supported by scipy.io.wavfile.read()")
