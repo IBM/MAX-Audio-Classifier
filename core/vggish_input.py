@@ -18,11 +18,11 @@
 import numpy as np
 import resampy
 from scipy.io import wavfile
-
 from . import mel_features
 from . import vggish_params
 import sys
 from io import BytesIO
+
 
 def waveform_to_examples(data, sample_rate):
     """Converts audio waveform into an array of examples for VGGish.

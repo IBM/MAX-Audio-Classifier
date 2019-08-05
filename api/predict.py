@@ -18,7 +18,6 @@ from flask_restplus import fields
 from werkzeug.datastructures import FileStorage
 from werkzeug.exceptions import BadRequest
 from maxfw.core import MAX_API, PredictAPI
-import os
 
 
 # set up parser for audio input data
