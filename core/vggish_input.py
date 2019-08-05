@@ -71,7 +71,7 @@ def waveform_to_examples(data, sample_rate):
     return log_mel_examples
 
 
-def wavfile_to_examples(wav_data):
+def wavfile_to_examples(wav_file):
     """Convenience wrapper around waveform_to_examples() for a common WAV format.
 
     Args:
@@ -82,8 +82,8 @@ def wavfile_to_examples(wav_data):
       See waveform_to_examples.
     """
     try:
-        wav_file = BytesIO(wav_data)
-        sr, wav_data = wavfile.read(wav_data)
+        wav_file = BytesIO(wav_file)
+        sr, wav_data = wavfile.read(wav_file)
     except IOError:
         print("Error reading WAV file!")
         print("The specified WAV file type is not supported by scipy.io.wavfile.read()")
