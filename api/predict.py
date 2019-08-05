@@ -52,6 +52,12 @@ class ModelPredictAPI(PredictAPI):
         result = {'status': 'error'}
 
         args = input_parser.parse_args()
+
+        if '.wav' not in str(args['audio']):
+            e = BadRequest()
+            e.data = {'status': 'error', 'message': 'Invalid file type/extension'}
+            raise e
+
         audio_data = args['audio'].read()
 
         # Getting the predictions
