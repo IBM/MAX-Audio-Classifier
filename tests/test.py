@@ -154,11 +154,11 @@ def test_multi_filter():
 
 
 def test_invalid_extension():
-    model_endpoint = 'http://localhost:5000/model/predict?filter=Clang,Ding'
+    model_endpoint = 'http://localhost:5000/model/predict'
     file_path = 'tests/test.py'
 
     with open(file_path, 'rb') as file:
-        file_form = {'audio': (file_path, file, 'audio/wav')}
+        file_form = {'audio': (file_path, file, 'text/x-python')}
         r = requests.post(url=model_endpoint, files=file_form)
 
     assert r.status_code == 400

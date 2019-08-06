@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import re
 from core.model import ModelWrapper
 from flask_restplus import fields
 from werkzeug.datastructures import FileStorage
@@ -53,7 +54,8 @@ class ModelPredictAPI(PredictAPI):
 
         args = input_parser.parse_args()
 
-        if '.wav' not in str(args['audio']):
+        if not re.match("audio/.*wav", str(args['audio'].mimetype)):
+            print(str(args['audio'].mimetype))
             e = BadRequest()
             e.data = {'status': 'error', 'message': 'Invalid file type/extension'}
             raise e
