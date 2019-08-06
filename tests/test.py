@@ -153,7 +153,7 @@ def test_multi_filter():
     assert response['predictions'][1]['probability'] > 0.09
 
 
-def test_invalid_extension():
+def test_invalid_mimetype():
     model_endpoint = 'http://localhost:5000/model/predict'
     file_path = 'tests/test.py'
 
