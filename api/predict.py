@@ -13,12 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import re
 from core.model import ModelWrapper
 from flask_restplus import fields
 from werkzeug.datastructures import FileStorage
 from werkzeug.exceptions import BadRequest
 from maxfw.core import MAX_API, PredictAPI
-import os
 
 
 # set up parser for audio input data
@@ -53,24 +53,17 @@ class ModelPredictAPI(PredictAPI):
         result = {'status': 'error'}
 
         args = input_parser.parse_args()
-        audio_data = args['audio'].read()
 
-        # clean up from earlier runs
-        if os.path.exists("audio.wav"):
-            os.remove("audio.wav")
-
-        if '.wav' in str(args['audio']):
-            file = open("audio.wav", "wb")
-            file.write(audio_data)
-            file.close()
-        else:
+        if not re.match("audio/.*wav", str(args['audio'].mimetype)):
             e = BadRequest()
             e.data = {'status': 'error', 'message': 'Invalid file type/extension'}
             raise e
 
+        audio_data = args['audio'].read()
+
         # Getting the predictions
         try:
-            preds = self.model_wrapper._predict("audio.wav", args['start_time'])
+            preds = self.model_wrapper._predict(audio_data, args['start_time'])
         except ValueError:
             e = BadRequest()
             e.data = {'status': 'error', 'message': 'Invalid start time: value outside audio clip'}
@@ -85,7 +78,5 @@ class ModelPredictAPI(PredictAPI):
 
         result['predictions'] = label_preds
         result['status'] = 'ok'
-
-        os.remove("audio.wav")
 
         return result

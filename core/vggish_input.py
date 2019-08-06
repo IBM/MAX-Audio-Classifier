@@ -18,10 +18,10 @@
 import numpy as np
 import resampy
 from scipy.io import wavfile
-
 from . import mel_features
 from . import vggish_params
 import sys
+from io import BytesIO
 
 
 def waveform_to_examples(data, sample_rate):
@@ -82,6 +82,7 @@ def wavfile_to_examples(wav_file):
       See waveform_to_examples.
     """
     try:
+        wav_file = BytesIO(wav_file)
         sr, wav_data = wavfile.read(wav_file)
     except IOError:
         print("Error reading WAV file!")

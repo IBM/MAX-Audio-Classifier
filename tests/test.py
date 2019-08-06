@@ -153,5 +153,21 @@ def test_multi_filter():
     assert response['predictions'][1]['probability'] > 0.09
 
 
+def test_invalid_mimetype():
+    model_endpoint = 'http://localhost:5000/model/predict'
+    file_path = 'tests/test.py'
+
+    with open(file_path, 'rb') as file:
+        file_form = {'audio': (file_path, file, 'text/x-python')}
+        r = requests.post(url=model_endpoint, files=file_form)
+
+    assert r.status_code == 400
+
+    response = r.json()
+
+    assert response['status'] == 'error'
+    assert response['message'] == 'Invalid file type/extension'
+
+
 if __name__ == '__main__':
     pytest.main([__file__])
