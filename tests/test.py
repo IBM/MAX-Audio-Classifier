@@ -166,7 +166,7 @@ def test_invalid_mimetype():
     response = r.json()
 
     assert response['status'] == 'error'
-    assert response['message'] == 'Invalid file type/extension'
+    assert response['message'] == 'Invalid file type/extension: text/x-python'
 
 
 if __name__ == '__main__':

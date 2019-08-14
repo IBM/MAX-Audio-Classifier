@@ -137,7 +137,7 @@ in the `samples` folder) and get predictions from the API.
 You can also test it on the command line, for example (with the `thunder.wav` file):
 
 ```
-$ curl -F "audio=@samples/thunder.wav" -XPOST http://localhost:5000/model/predict
+$ curl -F "audio=@samples/thunder.wav;type=audio/wav" -XPOST http://localhost:5000/model/predict
 ```
 
 You should see a JSON response like that below:
