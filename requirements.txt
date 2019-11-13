@@ -1,8 +1,7 @@
-numpy==1.14.1
+numpy==1.17.4
 tensorflow==1.13.1
-scipy==0.19.1
+scipy==1.2.2
 resampy==0.2.1
-six==1.10.0
 pandas==0.24.2
 keras==2.2.4
 h5py==2.9.0

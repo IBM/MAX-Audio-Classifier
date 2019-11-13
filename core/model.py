@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 import numpy as np
+import h5py
 import pandas as pd
 import tensorflow as tf
 from . import vggish_input
@@ -37,7 +38,8 @@ class ModelWrapper(MAXModelWrapper):
                  classifier_model=DEFAULT_CLASSIFIER_MODEL):
         # Initialize the classifier model
         self.session_classify = tf.keras.backend.get_session()
-        self.classify_model = tf.keras.models.load_model(classifier_model, compile=False)
+        with h5py.File(classifier_model) as f:
+            self.classify_model = tf.keras.models.load_model(f, compile=False)
 
         # Initialize the vgg-ish embedding model
         self.graph_embedding = tf.Graph()
