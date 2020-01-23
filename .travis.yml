@@ -27,6 +27,7 @@ install:
 before_script:
   - flake8 . --max-line-length=127
   - sleep 30
+  - pip install -r requirements-test.txt
 
 script:
   - pytest tests/test.py
