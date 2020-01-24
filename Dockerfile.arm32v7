@@ -28,7 +28,7 @@ RUN wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${mod
 
 # We use our own branch of pip and install TensorFlow directly from the URL here because of a bug in pip: https://github.com/pypa/packaging/pull/234
 RUN git clone --branch arm64 https://github.com/xuhdev/pip.git && cd pip && python setup.py install
-RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.14.0-cp37-none-linux_armv7l.whl
+RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
 COPY requirements.txt /workspace
 RUN pip install -r requirements.txt
 
