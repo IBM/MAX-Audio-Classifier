@@ -39,7 +39,7 @@ before_install:
 install:
   - docker build -f "$DOCKERFILE" -t codait/max-audio-classifier:"$IMAGE"-"$ARCH"-"$VERSION" .
   - docker run -it -d --rm -p 5000:5000 codait/max-audio-classifier:"$IMAGE"-"$ARCH"-"$VERSION"
-  - pip install -r pytest requests flake8
+  - pip install pytest requests flake8
 
 before_script:
   - flake8 . --max-line-length=127
