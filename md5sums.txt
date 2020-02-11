@@ -1,3 +1,0 @@
-4685fddd2590172886fbffd2756a437e  assets/classifier_model.h5
-d1c7011e6366aa34176bb05c705e31a8  assets/vggish_model.ckpt
-c80cae691033abe7c7ecd11ea39fc834  assets/vggish_pca_params.npz
