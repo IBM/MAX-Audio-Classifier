@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM codait/max-base:v1.1.3
+FROM codait/max-base:v1.3.2
 
 ARG model_bucket=https://max.cdn.appdomain.cloud/max-audio-classifier/1.0.0
 ARG model_file=assets.tar.gz
