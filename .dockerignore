@@ -4,6 +4,6 @@ docs/
 tests/
 .travis.yml
 .idea/
-samples/
+samples/*.wav
 .DS_Store
 __pycache__/
