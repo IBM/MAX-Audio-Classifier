@@ -5,3 +5,5 @@ tests/
 .travis.yml
 .idea/
 samples/
+.DS_Store
+__pycache__/
