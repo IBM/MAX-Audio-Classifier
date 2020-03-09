@@ -4,4 +4,6 @@ docs/
 tests/
 .travis.yml
 .idea/
-assets/*.wav
+samples/*.wav
+.DS_Store
+__pycache__/
