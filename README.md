@@ -62,8 +62,15 @@ arXiv:1609.09430, 2016.
 
 To run the docker image, which automatically starts the model serving API, run:
 
-```
+
+Intel CPUs:
+```bash
 $ docker run -it -p 5000:5000 codait/max-audio-classifier
+```
+
+ARM CPUs (eg Raspberry Pi):
+```bash
+$ docker run -it -p 5000:5000 codait/max-audio-classifier:arm-arm32v7-latest
 ```
 
 This will pull a pre-built image from Docker Hub (or use an existing image if already cached locally) and run it.
@@ -109,10 +116,14 @@ Change directory into the repository base folder:
 $ cd MAX-Audio-Classifier
 ```
 
-To build the Docker image locally, run:
-
-```
+To build the docker image locally for Intel CPUs, run:
+```bash
 $ docker build -t max-audio-classifier .
+```
+
+For ARM CPUs (eg Raspberry Pi), run:
+```bash
+$ docker build -f Dockerfile.arm32v7 -t max-object-detector .
 ```
 
 All required model assets will be downloaded during the build process. _Note_ that currently this Docker image is CPU
