@@ -89,6 +89,7 @@ def wavfile_to_examples(wav_file):
         print("The specified WAV file type is not supported by scipy.io.wavfile.read()")
         sys.exit(1)
 
-    assert wav_data.dtype == np.int16, 'Bad sample type: %r' % wav_data.dtype
+    if wav_data.dtype != np.int16:
+        raise TypeError('Bad sample type: %r' % wav_data.dtype)
     samples = wav_data / 32768.0  # Convert to [-1.0, +1.0]
     return waveform_to_examples(samples, sr)

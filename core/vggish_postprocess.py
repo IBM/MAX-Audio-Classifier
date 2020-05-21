@@ -43,11 +43,10 @@ class Postprocessor(object):
         self._pca_matrix = params[vggish_params.PCA_EIGEN_VECTORS_NAME]
         # Load means into a column vector for easier broadcasting later.
         self._pca_means = params[vggish_params.PCA_MEANS_NAME].reshape(-1, 1)
-        assert self._pca_matrix.shape == (
-            vggish_params.EMBEDDING_SIZE, vggish_params.EMBEDDING_SIZE), (
-                'Bad PCA matrix shape: %r' % (self._pca_matrix.shape,))
-        assert self._pca_means.shape == (vggish_params.EMBEDDING_SIZE, 1), (
-                'Bad PCA means shape: %r' % (self._pca_means.shape,))
+        if self._pca_matrix.shape != (vggish_params.EMBEDDING_SIZE, vggish_params.EMBEDDING_SIZE):
+            raise ValueError('Bad PCA matrix shape: %r' % self._pca_matrix.shape)
+        if self._pca_means.shape != (vggish_params.EMBEDDING_SIZE, 1):
+            raise ValueError('Bad PCA means shape: %r' % self._pca_means.shape)
 
     def postprocess(self, embeddings_batch):
         """Applies postprocessing to a batch of embeddings.
@@ -60,10 +59,10 @@ class Postprocessor(object):
           An nparray of the same shape as the input but of type uint8,
           containing the PCA-transformed and quantized version of the input.
         """
-        assert len(embeddings_batch.shape) == 2, (
-                'Expected 2-d batch, got %r' % (embeddings_batch.shape,))
-        assert embeddings_batch.shape[1] == vggish_params.EMBEDDING_SIZE, (
-                'Bad batch shape: %r' % (embeddings_batch.shape,))
+        if len(embeddings_batch.shape) != 2:
+            raise ValueError('Expected 2-d batch, got %r' % embeddings_batch.shape)
+        if embeddings_batch.shape[1] != vggish_params.EMBEDDING_SIZE:
+            raise ValueError('Bad batch shape: %r' % embeddings_batch.shape)
 
         # Apply PCA.
         # - Embeddings come in as [batch_size, embedding_size].
