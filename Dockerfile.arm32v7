@@ -22,7 +22,7 @@ ARG model_file=assets.tar.gz
 
 WORKDIR /workspace
 
-RUN apt-get update && apt-get -y install llvm-dev libatlas3-base libhdf5-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install llvm-dev libatlas3-base libhdf5-dev mlocate && rm -rf /var/lib/apt/lists/*
 
 RUN wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=assets/${model_file} && \
   tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file}
