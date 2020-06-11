@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/IBM/MAX-Audio-Classifier.svg?branch=master)](https://travis-ci.com/IBM/MAX-Audio-Classifier) [![Website Status](https://img.shields.io/website/http/max-audio-classifier.max.us-south.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-audio-classifier.max.us-south.containers.appdomain.cloud/)
+[![Build Status](https://travis-ci.com/IBM/MAX-Audio-Classifier.svg?branch=master)](https://travis-ci.com/IBM/MAX-Audio-Classifier) [![Website Status](https://img.shields.io/website/http/max-audio-classifier.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/swagger.json.svg?label=api+demo)](http://max-audio-classifier.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud)
 
 [<img src="docs/deploy-max-to-ibm-cloud-with-kubernetes-button.png" width="400px">](http://ibm.biz/max-to-ibm-cloud-tutorial)
 
@@ -62,7 +62,7 @@ arXiv:1609.09430, 2016.
 
 To run the docker image, which automatically starts the model serving API, run:
 
-```
+```bash
 $ docker run -it -p 5000:5000 codait/max-audio-classifier
 ```
 
@@ -79,7 +79,7 @@ You can also deploy the model on Kubernetes using the latest docker image on Doc
 
 On your Kubernetes cluster, run the following commands:
 
-```
+```bash
 $ kubectl apply -f https://raw.githubusercontent.com/IBM/MAX-Audio-Classifier/master/max-audio-classifier.yaml
 ```
 
@@ -99,19 +99,19 @@ A more elaborate tutorial on how to deploy this MAX model to production on [IBM 
 
 Clone this repository locally. In a terminal, run the following command:
 
-```
+```bash
 $ git clone https://github.com/IBM/MAX-Audio-Classifier.git
 ```
 
 Change directory into the repository base folder:
 
-```
+```bash
 $ cd MAX-Audio-Classifier
 ```
 
 To build the Docker image locally, run:
 
-```
+```bash
 $ docker build -t max-audio-classifier .
 ```
 
@@ -123,7 +123,7 @@ only (we will add support for GPU images later).
 
 To run the Docker image, which automatically starts the model serving API, run:
 
-```
+```bash
 $ docker run -it -p 5000:5000 max-audio-classifier
 ```
 
@@ -141,13 +141,13 @@ in the `samples` folder) and get predictions from the API.
 
 You can also test it on the command line, for example (with the `thunder.wav` file):
 
-```
+```bash
 $ curl -F "audio=@samples/thunder.wav;type=audio/wav" -XPOST http://localhost:5000/model/predict
 ```
 
 You should see a JSON response like that below:
 
-```
+```json
 {
     "status": "ok",
     "predictions": [
