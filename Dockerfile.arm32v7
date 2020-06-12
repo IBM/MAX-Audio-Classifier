@@ -27,7 +27,7 @@ RUN apt-get update && apt-get -y install llvm-dev libatlas3-base libhdf5-dev mlo
 RUN wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=assets/${model_file} && \
   tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file}
 
-RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.14.0-cp37-none-linux_armv7l.whl
+RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
 
 COPY requirements.txt /workspace
 # Skip tensorflow in requirements.txt
