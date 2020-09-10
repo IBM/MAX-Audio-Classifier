@@ -27,6 +27,6 @@ spec:
     spec:
       containers:
       - name: max-audio-classifier
-        image: codait/max-audio-classifier:latest
+        image: quay.io/codait/max-audio-classifier:latest
         ports:
         - containerPort: 5000
