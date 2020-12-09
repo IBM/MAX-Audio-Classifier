@@ -50,21 +50,22 @@ arXiv:1609.09430, 2016.
 
 * `docker`: The [Docker](https://www.docker.com/) command-line interface. Follow the [installation instructions](https://docs.docker.com/install/) for your system.
 * The minimum recommended resources for this model is 8 GB Memory and 4 CPUs.
+* If you are on x86-64/AMD64, your CPU must support [AVX](https://en.wikipedia.org/wiki/Advanced_Vector_Extensions) at the minimum.
 
 # Deployment options
 
-* [Deploy from Docker Hub](#deploy-from-docker-hub)
+* [Deploy from Quay](#deploy-from-quay)
 * [Deploy on Red Hat OpenShift](#deploy-on-red-hat-openshift)
 * [Deploy on Kubernetes](#deploy-on-kubernetes)
 * [Run Locally](#run-locally)
 
-## Deploy from Docker Hub
+## Deploy from Quay
 
 To run the docker image, which automatically starts the model serving API, run:
 
 Intel CPUs:
 ```bash
-$ docker run -it -p 5000:5000 codait/max-audio-classifier
+$ docker run -it -p 5000:5000 quay.io/codait/max-audio-classifier
 ```
 
 ARM CPUs (eg Raspberry Pi):
@@ -72,16 +73,16 @@ ARM CPUs (eg Raspberry Pi):
 $ docker run -it -p 5000:5000 codait/max-audio-classifier:arm-arm32v7-latest
 ```
 
-This will pull a pre-built image from Docker Hub (or use an existing image if already cached locally) and run it.
+This will pull a pre-built image from the Quay.io container registry (or use an existing image if already cached locally) and run it.
 If you'd rather checkout and build the model locally you can follow the [run locally](#run-locally) steps below.
 
 ## Deploy on Red Hat OpenShift
 
-You can deploy the model-serving microservice on Red Hat OpenShift by following the instructions for the OpenShift web console or the OpenShift Container Platform CLI [in this tutorial](https://developer.ibm.com/tutorials/deploy-a-model-asset-exchange-microservice-on-red-hat-openshift/), specifying `codait/max-audio-classifier` as the image name.
+You can deploy the model-serving microservice on Red Hat OpenShift by following the instructions for the OpenShift web console or the OpenShift Container Platform CLI [in this tutorial](https://developer.ibm.com/tutorials/deploy-a-model-asset-exchange-microservice-on-red-hat-openshift/), specifying `quay.io/codait/max-audio-classifier` as the image name.
 
 ## Deploy on Kubernetes
 
-You can also deploy the model on Kubernetes using the latest docker image on Docker Hub.
+You can also deploy the model on Kubernetes using the latest docker image on Quay.
 
 On your Kubernetes cluster, run the following commands:
 
