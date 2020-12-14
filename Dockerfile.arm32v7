@@ -1,5 +1,5 @@
 #
-# Copyright 2018-2019 IBM Corp. All Rights Reserved.
+# Copyright 2018-2020 IBM Corp. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 FROM quay.io/codait/max-base:arm-arm32v7-v1.3.3
 
 ARG model_bucket=https://max-cdn.cdn.appdomain.cloud/max-audio-classifier/1.0.0
@@ -26,14 +27,16 @@ RUN apt-get update && apt-get -y install llvm-dev libatlas3-base libhdf5-dev && 
 RUN wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=assets/${model_file} && \
   tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file}
 
+RUN python -m pip install https://www.piwheels.org/simple/tensorflow/tensorflow-1.13.1-cp37-none-linux_armv7l.whl
+
 COPY requirements.txt /workspace
-RUN pip install -r requirements.txt
+# Skip tensorflow in requirements.txt
+RUN grep -v 'tensorflow' requirements.txt | python -m pip install -r /dev/stdin
 
 COPY . /workspace
 
 # check file integrity
 RUN sha512sum -c sha512sums.txt
-
 EXPOSE 5000
 
 CMD python app.py
