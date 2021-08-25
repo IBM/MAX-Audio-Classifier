@@ -1,5 +1,5 @@
 numpy==1.17.4
-tensorflow==1.15.4
+tensorflow==2.5.1
 scipy==1.2.2
 resampy==0.2.1
 pandas==0.24.2
