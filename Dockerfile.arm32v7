@@ -15,7 +15,7 @@
 #
 FROM quay.io/codait/max-base:arm-arm32v7-v1.4.0
 
-ARG model_bucket=https://max-cdn.cdn.appdomain.cloud/max-audio-classifier/1.0.0
+ARG model_bucket=https://codait-cos-max.s3.us.cloud-object-storage.appdomain.cloud/max-audio-classifier/1.0.0
 ARG model_file=assets.tar.gz
 
 RUN sudo apt-get update && sudo apt-get -y install llvm-dev libatlas3-base libhdf5-dev && sudo rm -rf /var/lib/apt/lists/*
